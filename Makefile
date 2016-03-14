@@ -29,7 +29,7 @@ $(NAME): $(OBJ_S)
 
 
 %.o: %.c
-	@gcc $(FLAGS) -c -I libft/includes $<
+	@gcc $(FLAGS) -c -I libft/includes -I includes $<
 
 clean:
 	@rm -f $(OBJ_S)
