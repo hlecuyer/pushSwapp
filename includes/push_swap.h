@@ -15,8 +15,6 @@
 
 typedef struct		s_merge
 {
-	int				half_b;
-	int				half_c;
 	int				i;
 	int				j;
 	int				ret;
@@ -30,4 +28,22 @@ typedef struct		s_inver
 	int				half_b;
 	int				ret;
 }					t_inver;
+
+typedef struct		s_swap
+{
+	t_lst			*stk_a;
+	t_lst			*stk_b;
+	t_lst			*action;
+}					t_swap;
+
+typedef struct		s_part
+{
+	int				pivot;
+	int				right;
+	int				left;
+	int				is_sort;
+}					t_part;
+
+void create_partition(t_swap *s);
+
 #endif
