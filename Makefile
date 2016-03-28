@@ -3,45 +3,55 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: johnduro <>                                +#+  +:+       +#+         #
+#    By: hlecuyer <>                                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/01/28 11:39:35 by johnduro          #+#    #+#              #
-#    Updated: 2014/01/28 11:39:35 by johnduro         ###   ########.fr        #
+#    Created: 2014/01/28 11:39:35 by hlecuyer          #+#    #+#              #
+#    Updated: 2014/01/28 11:39:35 by hlecuyer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swapp
+NAME				=	push_swap
 
-SRC_S = main.c
+INCLUDE_DIR			=	includes
 
-OBJ_S = $(SRC_S:.c=.o)
+LIBFT				=	ft
+LIBFT_DIR			=	libft
+LIBFT_NAME			=	$(LIBFT_DIR)/libft.a
+LIBFT_INCLUDE_DIR	=	$(LIBFT_DIR)/includes
 
+COMPILER			=	gcc
 
-FLAGS = -g3 -Wall -Wextra -Werror
+SRCS				=	main.c \
+						inversion2.c \
+						inversion.c \
+						quick_sort.c \
+						action.c
 
-all: build $(NAME) finish
+OBJS				=	$(SRCS:.c=.o)
 
-build:
-	@make -C libft
+CFLAGS				=	-g3 -O3 -Wall -Wextra -Werror -c			\
+						-I $(LIBFT_INCLUDE_DIR) -I $(INCLUDE_DIR)
+LFLAGS				=	-L$(LIBFT_DIR) -l$(LIBFT) -o
 
-$(NAME): $(OBJ_S)
-	@gcc $(OBJ_S) -L libft -lft -o $(NAME)
+all: $(LIBFT_NAME)
+	$(MAKE) $(NAME)
 
+$(LIBFT_NAME):
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(OBJS)
+	$(COMPILER) $^ $(LFLAGS) $(NAME)
 
 %.o: %.c
-	@gcc $(FLAGS) -c -I libft/includes -I includes $<
+	$(COMPILER) $(CFLAGS) $<
 
 clean:
-	@rm -f $(OBJ_S)
-	@make -C libft/ clean
+	@rm -f $(OBJS)
+	@make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C libft/ fclean
 
 re: fclean all
-
-finish:
-	@(echo "[\033[32m$(NAME)\033[00m]")
 
 .PHONY: all build clean fclean re

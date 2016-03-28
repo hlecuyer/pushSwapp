@@ -111,11 +111,11 @@ OBJ=$(SRC:.c=.o)
 all: $(NAME) finish
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 %.o: %.c ./includes
-	gcc $(CFLAGS) $(INCLUDES) -o $@ -c $<
+	@gcc $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean:
 	@(rm -rf $(OBJ))
